@@ -1,56 +1,55 @@
 package com.algs4.chapter1.section3.practice;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
-
+/******************************************************************************
+ *  Compilation:  javac Parentheses.java
+ *  Execution:    java Parentheses
+ *  Dependencies: In.java Stack.java
+ *
+ *  Reads in a text file and checks to see if the parentheses are balanced.
+ *
+ *
+ ******************************************************************************/
 public class Parentheses {
-    public static void main(String[] args) {
-        //创建一个栈并根据StdIn中的指示压入或弹出字符串
-        Stack<String> s = new Stack<String>();
-        //{ [ ( ) ] }
-        while(!StdIn.isEmpty()){
-            String ending = StdIn.readString();
+    private static final char LEFT_PAREN     = '(';
+    private static final char RIGHT_PAREN    = ')';
+    private static final char LEFT_BRACE     = '{';
+    private static final char RIGHT_BRACE    = '}';
+    private static final char LEFT_BRACKET   = '[';
+    private static final char RIGHT_BRACKET  = ']';
 
-            if(ending == "{" || ending == "[" || ending == "("){
-                s.push(ending);
-            }else if(!s.isEmpty()){
-                String begin = s.pop();
+    public static boolean isBalanced(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == LEFT_PAREN)   stack.push(LEFT_PAREN);
+            if (s.charAt(i) == LEFT_BRACE)   stack.push(LEFT_BRACE);
+            if (s.charAt(i) == LEFT_BRACKET) stack.push(LEFT_BRACKET);
 
-                int b = begin(begin);
-                int e = ending(ending);
+            if (s.charAt(i) == RIGHT_PAREN) {
+                if (stack.isEmpty())           return false;
+                if (stack.pop() != LEFT_PAREN) return false;
+            }
 
-                if(b == e){
-                    StdOut.println(begin + " ");
-                }
+            else if (s.charAt(i) == RIGHT_BRACE) {
+                if (stack.isEmpty())           return false;
+                if (stack.pop() != LEFT_BRACE) return false;
+            }
 
+            else if (s.charAt(i) == RIGHT_BRACKET) {
+                if (stack.isEmpty())             return false;
+                if (stack.pop() != LEFT_BRACKET) return false;
             }
         }
+        return stack.isEmpty();
     }
 
-    private static int begin(String item){
-        switch (item){
-            case "{":
-                return 1;
-            case "[":
-                return 2;
-            case "(":
-                return 3;
-            default :
-                return 0;
-        }
-    }
 
-    private static int ending(String item){
-        switch (item){
-            case "}":
-                return 1;
-            case "]":
-                return 2;
-            case ")":
-                return 3;
-            default :
-                return 0;
-        }
+    public static void main(String[] args) {
+        // 1.3.4
+        In in = new In();
+        String s = in.readAll().trim();//[()]{}{[()()]()}   [(])
+        StdOut.println(isBalanced(s));//true    false
     }
 }
