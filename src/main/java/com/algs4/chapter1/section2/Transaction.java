@@ -8,11 +8,12 @@ package com.algs4.chapter1.section2;
  *
  ******************************************************************************/
 
+import edu.princeton.cs.algs4.Date;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
+
 
 /**
  *  The {@code Transaction} class is an immutable data type to encapsulate a

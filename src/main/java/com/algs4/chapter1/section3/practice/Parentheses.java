@@ -3,6 +3,7 @@ package com.algs4.chapter1.section3.practice;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
+
 /******************************************************************************
  *  Compilation:  javac Parentheses.java
  *  Execution:    java Parentheses
@@ -10,8 +11,16 @@ import edu.princeton.cs.algs4.StdOut;
  *
  *  Reads in a text file and checks to see if the parentheses are balanced.
  *
+ *  %  java Parentheses
+ *  [()]{}{[()()]()}
+ *  true
+ *
+ *  % java Parentheses
+ *  [(])
+ *  false
  *
  ******************************************************************************/
+
 public class Parentheses {
     private static final char LEFT_PAREN     = '(';
     private static final char RIGHT_PAREN    = ')';
@@ -47,9 +56,8 @@ public class Parentheses {
 
 
     public static void main(String[] args) {
-        // 1.3.4
         In in = new In();
-        String s = in.readAll().trim();//[()]{}{[()()]()}   [(])
-        StdOut.println(isBalanced(s));//true    false
+        String s = in.readAll().trim();
+        StdOut.println(isBalanced(s));
     }
 }
